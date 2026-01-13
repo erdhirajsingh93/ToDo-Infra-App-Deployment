@@ -29,6 +29,19 @@ module "linux_vmss" {
   depends_on = [module.virtual_networks]
   source     = "../../modules/azurerm_linux_virtual_machine_scale_set"
   linux_vmss = var.linux_vmss
+}
 
+
+module "key_vault" {
+  depends_on = [module.resource_group]
+  source     = "../../modules/azurerm_key_vault"
+  key_vault  = var.key_vault
 
 }
+
+module "key_vault_secrets" {
+  depends_on = [ module.key_vault ]
+source = "../../modules/azurerm_key_vault_secrets"
+key_vault_secrets = var.key_vault_secrets
+}
+

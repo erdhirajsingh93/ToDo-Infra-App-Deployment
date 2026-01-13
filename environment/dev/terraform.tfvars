@@ -95,8 +95,8 @@ linux_vmss = {
     admin_username                  = "adminuser"
     admin_password                  = "Password@123"
     disable_password_authentication = false
-    virtual_network_name = "vnet-1"
-    subnet_name = "subnet1"
+    virtual_network_name            = "vnet-1"
+    subnet_name                     = "subnet1"
 
     source_image_reference = {
       publisher = "Canonical"
@@ -116,12 +116,46 @@ linux_vmss = {
         primary = true
 
         ip_configuration = {
-            name       = "ipconfig-01"
-            primary    = true
-          }
+          name    = "ipconfig-01"
+          primary = true
         }
       }
     }
   }
+}
 
 
+key_vault = {
+  key_vault1 = {
+    name                        = "neutizori-kv"
+    location                    = "Central India"
+    resource_group_name         = "dhirajrg-1"
+    enabled_for_disk_encryption = true
+    soft_delete_retention_days  = 7
+    purge_protection_enabled    = false
+    sku_name                    = "standard"
+
+    access_policy = {
+      key_permissions     = ["Get", "Create", "List", "Purge", "Delete"]
+      secret_permissions  = ["Get", "Set", "List", "Purge", "Delete"]
+      storage_permissions = ["Get", "Set", "List", "Purge", "Delete"]
+    }
+  }
+}
+
+
+key_vault_secrets = {
+ key_vault_secrets1 = {
+      name = "username"
+      value = "adminusername"
+      key_vault_name = "neutizori-kv"
+      resource_group_name = "dhirajrg-1"
+    }
+  key_vault_secrets2 = {
+      name = "password"
+      value = "Nokia@802301"
+      key_vault_name = "neutizori-kv"
+      resource_group_name = "dhirajrg-1"
+    }
+ 
+    }
