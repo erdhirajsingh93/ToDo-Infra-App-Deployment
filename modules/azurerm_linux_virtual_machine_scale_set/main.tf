@@ -5,8 +5,8 @@ resource "azurerm_linux_virtual_machine_scale_set" "linux_vmss" {
   location            = each.value.location
   sku                 = each.value.sku
   instances           = each.value.instances
-  admin_username      = "adminuser"
-  admin_password      = "Nokia@802301"
+  admin_username      = data.azurerm_key_vault_secret.key_vault_secret_username[each.key].value
+  admin_password      = data.azurerm_key_vault_secret.key_vault_secret_password[each.key].value
   disable_password_authentication = each.value.disable_password_authentication
  
   
@@ -35,7 +35,6 @@ resource "azurerm_linux_virtual_machine_scale_set" "linux_vmss" {
       primary   = network_interface.value.ip_configuration.primary
       subnet_id = data.azurerm_subnet.subnets[each.key].id
         }
-      
     }
   }
 }

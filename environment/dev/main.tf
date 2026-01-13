@@ -26,7 +26,7 @@ module "public_ips" {
 
 
 module "linux_vmss" {
-  depends_on = [module.virtual_networks]
+  depends_on = [module.virtual_networks, module.key_vault_secrets]
   source     = "../../modules/azurerm_linux_virtual_machine_scale_set"
   linux_vmss = var.linux_vmss
 }
@@ -40,8 +40,14 @@ module "key_vault" {
 }
 
 module "key_vault_secrets" {
-  depends_on = [ module.key_vault ]
+depends_on = [ module.key_vault ]
 source = "../../modules/azurerm_key_vault_secrets"
 key_vault_secrets = var.key_vault_secrets
 }
 
+module "azurerm_bastion_host" {
+  depends_on = [ module.virtual_networks, module.public_ips ]
+  source = "../../modules/azurerm_bastion_host"
+  bastion_host = var.bastion_host
+  
+}

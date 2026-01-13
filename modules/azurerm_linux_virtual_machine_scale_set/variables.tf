@@ -6,8 +6,9 @@ variable "linux_vmss" {
     location = string
     sku = string
     instances = number
-    admin_username = string
-    admin_password = string
+    key_vault_name = string
+    key_vault_secret_username = string
+    key_vault_secret_password = string
     disable_password_authentication = bool
     virtual_network_name = string
     subnet_name = string
