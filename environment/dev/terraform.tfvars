@@ -61,7 +61,7 @@ virtual_networks = {
       }
 
       subnet3 = {
-        name             = "apgw_subnet"
+        name             = "AzureBastionSubnet"
         address_prefixes = ["10.0.3.0/24"]
       }
 
@@ -145,17 +145,32 @@ key_vault = {
 
 
 key_vault_secrets = {
- key_vault_secrets1 = {
-      name = "username"
-      value = "adminusername"
-      key_vault_name = "neutizori-kv"
-      resource_group_name = "dhirajrg-1"
-    }
+  key_vault_secrets1 = {
+    name                = "username"
+    value               = "adminusername"
+    key_vault_name      = "neutizori-kv"
+    resource_group_name = "dhirajrg-1"
+  }
   key_vault_secrets2 = {
-      name = "password"
-      value = "Nokia@802301"
-      key_vault_name = "neutizori-kv"
-      resource_group_name = "dhirajrg-1"
+    name                = "password"
+    value               = "Nokia@802301"
+    key_vault_name      = "neutizori-kv"
+    resource_group_name = "dhirajrg-1"
+  }
+
+}
+
+
+bastion_host = {
+  bastion1 = {
+    name                 = "dhirajbastion"
+    location             = "Central India"
+    resource_group_name  = "dhirajrg-1"
+    subnet_name          = "AzureBastionSubnet"
+    virtual_network_name = "vnet-1"
+    public_ip_name       = "frontend_public_ip"
+    ip_configuration = {
+      name = "bastionipconfig1"
     }
- 
-    }
+  }
+}
